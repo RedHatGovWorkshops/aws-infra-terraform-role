@@ -1,0 +1,41 @@
+ansible_ssh_user=ec2-user
+ansible_become=yes
+
+[local_target]
+localhost  ansible_connection=local  ansible_python_interpreter='/usr/bin/env python'
+
+
+# Ansible Workshops
+[tower_masters]
+{% for master in range(0, number_master_nodes) %}
+{{workshop_prefix}}.master.{{ loop.index0 }}.redhatgov.io
+{% endfor %}
+
+[tower_nodes]
+{% for node in range(0, number_nodes) %}
+{{workshop_prefix}}.node.{{ loop.index0 }}.redhatgov.io
+{% endfor %}
+
+
+# OpenShift Workshops
+[masters]
+{% for master in range(0, number_master_nodes) %}
+{{workshop_prefix}}.master.{{ loop.index0 }}.redhatgov.io
+{% endfor %}
+
+[nodes]
+{% for node in range(0, number_nodes) %}
+{{workshop_prefix}}.node.{{ loop.index0 }}.redhatgov.io
+{% endfor %}
+
+
+# Secure Containers & OpenShift
+[sec_nodes]
+{% for node in range(0, number_nodes) %}
+{{workshop_prefix}}.node.{{ loop.index0 }}.redhatgov.io
+{% endfor %}
+
+# Wetty (Browser-based SSH)
+[wetty]
+{{workshop_prefix}}.wetty.redhatgov.io
+
